@@ -14,7 +14,7 @@ const Services = () => {
       title: "College Projects",
       description: "Complete project development for web applications, mobile apps, and software solutions with full documentation.",
       features: ["Source code & documentation", "Project presentation", "Technical support", "Testing & debugging", "Deployment guidance"],
-      price: "Starting from $299",
+      price: "Starting from ₹15000",
       duration: "7-14 days",
       color: "blue",
       popular: true
@@ -24,7 +24,7 @@ const Services = () => {
       title: "IEEE Papers",
       description: "Professional IEEE format papers with proper citations, methodology, and research standards.",
       features: ["IEEE format compliance", "Peer review process", "Publication guidance", "Literature review", "Research methodology"],
-      price: "Starting from $199",
+      price: "Starting from ₹3000",
       duration: "5-10 days",
       color: "green"
     },
@@ -33,7 +33,7 @@ const Services = () => {
       title: "Research Papers",
       description: "Comprehensive research documentation with proper references and academic formatting.",
       features: ["Literature review", "Data analysis", "Citations & references", "Statistical analysis", "Plagiarism check"],
-      price: "Starting from $149",
+      price: "Starting from ₹1999",
       duration: "3-7 days",
       color: "purple"
     },
@@ -42,7 +42,7 @@ const Services = () => {
       title: "Documentation",
       description: "Complete project documentation including technical specifications and user manuals.",
       features: ["Technical documentation", "User guide", "API documentation", "System architecture", "Installation guide"],
-      price: "Starting from $99",
+      price: "Starting from ₹99",
       duration: "2-5 days",
       color: "orange"
     },
@@ -51,7 +51,7 @@ const Services = () => {
       title: "References & Citations",
       description: "Proper academic referencing in APA, MLA, IEEE, and other required formats.",
       features: ["Multiple citation styles", "Bibliography creation", "Reference verification", "Format compliance", "Academic standards"],
-      price: "Starting from $49",
+      price: "Starting from ₹49",
       duration: "1-3 days",
       color: "red"
     },
@@ -60,7 +60,7 @@ const Services = () => {
       title: "Consultation",
       description: "One-on-one guidance and support throughout your project development process.",
       features: ["Project planning", "Progress reviews", "24/7 support", "Expert guidance", "Technical mentoring"],
-      price: "Starting from $79/hour",
+      price: "Starting from ₹79/hour",
       duration: "Immediate",
       color: "indigo"
     }
@@ -223,7 +223,7 @@ const Services = () => {
                       <span className="text-gray-600 font-medium">🕒 {service.duration}</span>
                     </div>
                     
-                    <Link to="/contact">
+                    <Link to={service.title === "College Projects" ? "/project-topics" : "/contact"}>
                       <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all text-sm md:text-base py-2 md:py-3">
                         Get Started →
                       </Button>

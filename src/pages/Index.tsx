@@ -109,14 +109,16 @@ const Index = () => {
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
               Get professional help with 
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> college projects</span>, 
+              <Link to="/project-topics">
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-purple-600 hover:to-blue-600 transition-all duration-300 cursor-pointer"> college projects</span>
+              </Link>, 
               IEEE papers, and research documents.
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed">
               Quality work delivered on time. We build major/minor college projects for students in CS, IT, Mechanical, ECE, and more.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              <Link to="/contact">
+              <Link to="/services">
                 <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-semibold px-6 md:px-8 py-3 md:py-4 text-sm md:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
                   Start Your Project
                   <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />

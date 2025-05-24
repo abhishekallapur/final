@@ -71,3 +71,28 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Environment Variables Setup
+
+This project uses environment variables to manage sensitive information. Create a `.env` file in the root directory with the following variables:
+
+```env
+# Contact Information
+VITE_CONTACT_EMAIL=your_contact_email@example.com
+VITE_CONTACT_PHONE=your_contact_phone
+VITE_CONTACT_BUSINESS_HOURS="your_business_hours"
+
+# Supabase Configuration
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_SUPABASE_STORAGE_URL=your_supabase_storage_url
+```
+
+Replace the placeholder values with your actual configuration. Never commit the `.env` file to version control.
+
+## Security Notes
+
+1. The `.env` file is listed in `.gitignore` and should never be committed to the repository
+2. Keep your environment variables secure and don't share them publicly
+3. Use different environment variables for development and production environments
+4. Regularly rotate sensitive keys and credentials

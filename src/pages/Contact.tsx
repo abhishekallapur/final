@@ -28,6 +28,11 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Get environment variables
+  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || 'contact@example.com';
+  const contactPhone = import.meta.env.VITE_CONTACT_PHONE || '+1 (555) 123-4567';
+  const businessHours = import.meta.env.VITE_CONTACT_BUSINESS_HOURS || 'Mon-Fri 9AM-6PM EST';
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -305,7 +310,12 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-base md:text-lg">Email Us</h3>
-                  <p className="text-gray-700 font-medium text-sm md:text-base">info@academicpro.com</p>
+                  <a 
+                    href={`mailto:${contactEmail}`}
+                    className="text-gray-700 font-medium text-sm md:text-base hover:text-blue-600 transition-colors duration-300"
+                  >
+                    {contactEmail}
+                  </a>
                   <p className="text-xs md:text-sm text-blue-600 font-medium">We respond within 2 hours</p>
                 </div>
               </div>
@@ -316,8 +326,13 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-base md:text-lg">Call Us</h3>
-                  <p className="text-gray-700 font-medium text-sm md:text-base">+1 (555) 123-4567</p>
-                  <p className="text-xs md:text-sm text-orange-600 font-medium">Mon-Fri 9AM-6PM EST</p>
+                  <a 
+                    href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}
+                    className="text-gray-700 font-medium text-sm md:text-base hover:text-orange-600 transition-colors duration-300"
+                  >
+                    {contactPhone}
+                  </a>
+                  <p className="text-xs md:text-sm text-orange-600 font-medium">{businessHours}</p>
                 </div>
               </div>
 
@@ -532,11 +547,11 @@ const Contact = () => {
                       <SelectValue placeholder="Select budget range..." />
                     </SelectTrigger>
                     <SelectContent className="bg-white border-2 border-gray-200 rounded-lg shadow-xl">
-                      <SelectItem value="under-100">Under $100</SelectItem>
-                      <SelectItem value="100-300">$100 - $300</SelectItem>
-                      <SelectItem value="300-500">$300 - $500</SelectItem>
-                      <SelectItem value="500-1000">$500 - $1000</SelectItem>
-                      <SelectItem value="1000-plus">$1000+</SelectItem>
+                      <SelectItem value="under-5000">Under ₹5,000</SelectItem>
+                      <SelectItem value="5000-15000">₹5,000 - ₹15,000</SelectItem>
+                      <SelectItem value="15000-25000">₹15,000 - ₹25,000</SelectItem>
+                      <SelectItem value="25000-50000">₹25,000 - ₹50,000</SelectItem>
+                      <SelectItem value="50000-plus">₹50,000+</SelectItem>
                       <SelectItem value="discuss">Let's Discuss</SelectItem>
                     </SelectContent>
                   </Select>
