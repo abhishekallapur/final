@@ -85,15 +85,15 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-center space-x-3 text-gray-300">
                 <Mail className="h-5 w-5 text-blue-400" />
-                <span>info@academicpro.com</span>
+                <span>devprojectera@gmail.com</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <Phone className="h-5 w-5 text-blue-400" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 7676832037</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <MapPin className="h-5 w-5 text-blue-400" />
-                <span>123 Academic Street, Education City</span>
+                <span>Mangalore, Karnataka, India</span>
               </div>
             </div>
             
@@ -120,7 +120,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
-              © 2024 AcademicPro. All rights reserved. | Built with ❤️ for students worldwide
+              © 2024 ProjectEra. All rights reserved. | Built with ❤️ for students worldwide
             </div>
             <div className="flex space-x-6 text-sm text-gray-400">
               <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
