@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, MessageCircle } from 'lucide-react';
 
 const Footer = () => {
-  const email = import.meta.env.VITE_CONTACT_EMAIL || 'devprojectera@gmail.com';
-  const phone = import.meta.env.VITE_CONTACT_PHONE || '+91 7676832037';
-  const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK || 'https://wa.me/917676832037';
+  const email = import.meta.env.VITE_CONTACT_EMAIL;
+  const phone = import.meta.env.VITE_CONTACT_PHONE;
+  const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK;
 
   // Social Media Links
-  const instagramLink = import.meta.env.VITE_INSTAGRAM_LINK || '#';
-  const linkedinLink = import.meta.env.VITE_LINKEDIN_LINK || '#';
-  const facebookLink = import.meta.env.VITE_FACEBOOK_LINK || '#';
-  const twitterLink = import.meta.env.VITE_TWITTER_LINK || '#';
+  const instagramLink = import.meta.env.VITE_INSTAGRAM_LINK;
+  const linkedinLink = import.meta.env.VITE_LINKEDIN_LINK;
+  const facebookLink = import.meta.env.VITE_FACEBOOK_LINK;
+  const twitterLink = import.meta.env.VITE_TWITTER_LINK;
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white">
@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="space-y-6">
             <div>
               <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-                AcademicPro
+                ProjectEra
               </h3>
               <p className="text-gray-300 leading-relaxed">
                 Your trusted partner for professional academic project services. We help students achieve excellence in their college projects and research work.
@@ -40,6 +40,9 @@ const Footer = () => {
               </a>
               <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-pink-600 hover:bg-pink-700 rounded-full transition-colors" aria-label="Instagram">
                 <Instagram className="h-5 w-5" />
+              </a>
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-green-600 hover:bg-green-700 rounded-full transition-colors" aria-label="WhatsApp">
+                <MessageCircle className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -133,7 +136,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
-              © 2024 ProjectEra. All rights reserved. | Built with ❤️ for students worldwide
+              © 2025 ProjectEra. All rights reserved. | Built with ❤️ for students worldwide
             </div>
             <div className="flex space-x-6 text-sm text-gray-400">
               <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>

@@ -30,6 +30,14 @@ VITE_TWITTER_LINK=https://twitter.com/your_username
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 VITE_SUPABASE_STORAGE_URL=your_supabase_storage_url
+
+# Email Configuration (Required for contact form)
+# Get these from your email service provider (e.g., Gmail, SendGrid, etc.)
+SMTP_HOSTNAME=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_specific_password
+SMTP_FROM_EMAIL=your_email@gmail.com
 ```
 
 ## How to get Supabase credentials:
@@ -42,6 +50,19 @@ VITE_SUPABASE_STORAGE_URL=your_supabase_storage_url
    - Project URL (for VITE_SUPABASE_URL)
    - anon/public key (for VITE_SUPABASE_ANON_KEY)
    - Storage URL (for VITE_SUPABASE_STORAGE_URL)
+
+## How to set up email sending:
+
+1. Choose an email service provider (e.g., Gmail, SendGrid, etc.)
+2. For Gmail:
+   - Enable 2-factor authentication
+   - Generate an App Password (Google Account > Security > App Passwords)
+   - Use your Gmail address as SMTP_USERNAME and SMTP_FROM_EMAIL
+   - Use the generated App Password as SMTP_PASSWORD
+3. For SendGrid:
+   - Create an account
+   - Create an API key
+   - Use their SMTP settings and API key
 
 ## Common Issues and Solutions
 
@@ -59,7 +80,13 @@ VITE_SUPABASE_STORAGE_URL=your_supabase_storage_url
    - Check if email and phone variables are set correctly
    - Verify social media links are valid URLs
 
-4. **Build errors**
+4. **Email notifications not working**
+   - Verify SMTP credentials in `.env` file
+   - Check if your email service provider allows SMTP access
+   - Make sure the Supabase Edge Function is deployed
+   - Check Supabase logs for any email sending errors
+
+5. **Build errors**
    - Delete `node_modules` folder
    - Delete `package-lock.json`
    - Run `npm install` again

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MessageCircle, Upload, CheckCircle, Clock, FileText, User, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, MessageCircle, Upload, CheckCircle, Clock, FileText, User, Facebook, Twitter, Linkedin, Instagram, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -26,6 +26,8 @@ const Contact = () => {
   });
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showWhatsapp, setShowWhatsapp] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -100,7 +102,7 @@ const Contact = () => {
       }
 
       // Insert project request into database
-      const { error } = await supabase
+      const { error: dbError } = await supabase
         .from('project_requests')
         .insert({
           name: `${formData.firstName} ${formData.lastName}`,
@@ -116,8 +118,8 @@ const Contact = () => {
           status: 'Submitted'
         });
 
-      if (error) {
-        console.error('Database error:', error);
+      if (dbError) {
+        console.error('Database error:', dbError);
         toast({
           title: "Submission failed",
           description: "There was an error submitting your request. Please try again.",
@@ -127,11 +129,64 @@ const Contact = () => {
         return;
       }
 
+      // Send email notification
+      const { error: emailError } = await supabase.functions.invoke('send-project-notification', {
+        body: {
+          to: import.meta.env.VITE_CONTACT_EMAIL,
+          subject: `New Project Request: ${formData.projectTitle}`,
+          html: `
+            <h2>New Project Request Received</h2>
+            <p><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</p>
+            <p><strong>Email:</strong> ${formData.email}</p>
+            <p><strong>Phone:</strong> ${formData.phone}</p>
+            <p><strong>College:</strong> ${formData.college}</p>
+            <p><strong>Project Type:</strong> ${formData.projectType}</p>
+            <p><strong>Project Title:</strong> ${formData.projectTitle}</p>
+            <p><strong>Description:</strong> ${formData.projectDescription}</p>
+            <p><strong>Deadline:</strong> ${formData.deadline || 'Not specified'}</p>
+            <p><strong>Budget:</strong> ${formData.budget}</p>
+            ${fileUrl ? `<p><strong>File:</strong> <a href="${fileUrl}">View Requirements</a></p>` : ''}
+          `
+        }
+      });
+
+      if (emailError) {
+        console.error('Email notification error:', emailError);
+        // Don't show error to user since the form was submitted successfully
+      }
+
+      // Send confirmation email to client
+      const { error: clientEmailError } = await supabase.functions.invoke('send-project-notification', {
+        body: {
+          to: formData.email,
+          subject: 'Project Request Received - ProjectEra',
+          html: `
+            <h2>Thank you for your project request!</h2>
+            <p>Dear ${formData.firstName},</p>
+            <p>We have received your project request and will review it within 2 hours. Our team will get back to you with a detailed proposal and timeline.</p>
+            <p>Here's a summary of your request:</p>
+            <ul>
+              <li><strong>Project Type:</strong> ${formData.projectType}</li>
+              <li><strong>Project Title:</strong> ${formData.projectTitle}</li>
+              <li><strong>Deadline:</strong> ${formData.deadline || 'Not specified'}</li>
+              <li><strong>Budget Range:</strong> ${formData.budget}</li>
+            </ul>
+            <p>If you have any questions in the meantime, please don't hesitate to contact us.</p>
+            <p>Best regards,<br>The ProjectEra Team</p>
+          `
+        }
+      });
+
+      if (clientEmailError) {
+        console.error('Client confirmation email error:', clientEmailError);
+        // Don't show error to user since the form was submitted successfully
+      }
+
       toast({
         title: "Project Request Submitted!",
         description: "We'll review your requirements and get back to you within 24 hours.",
       });
-      
+      setShowWhatsapp(true);
       // Reset form
       setFormData({
         firstName: '',
@@ -188,15 +243,15 @@ const Contact = () => {
     }
   ];
 
-  const email = import.meta.env.VITE_CONTACT_EMAIL || 'info@academicpro.com';
-  const phone = import.meta.env.VITE_CONTACT_PHONE || '+1 (555) 123-4567';
-  const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK || 'https://wa.me/15551234567';
+  const email = import.meta.env.VITE_CONTACT_EMAIL;
+  const phone = import.meta.env.VITE_CONTACT_PHONE;
+  const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK;
 
   // Social Media Links
-  const instagramLink = import.meta.env.VITE_INSTAGRAM_LINK || '#';
-  const linkedinLink = import.meta.env.VITE_LINKEDIN_LINK || '#';
-  const facebookLink = import.meta.env.VITE_FACEBOOK_LINK || '#';
-  const twitterLink = import.meta.env.VITE_TWITTER_LINK || '#';
+  const instagramLink = import.meta.env.VITE_INSTAGRAM_LINK;
+  const linkedinLink = import.meta.env.VITE_LINKEDIN_LINK;
+  const facebookLink = import.meta.env.VITE_FACEBOOK_LINK;
+  const twitterLink = import.meta.env.VITE_TWITTER_LINK;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
@@ -214,6 +269,18 @@ const Contact = () => {
               <img src="/pp.png" alt="ProjectEra Logo" className="h-10 w-auto mr-2" />
               <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-1">ProjectEra</span>
             </div>
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6 text-gray-700" />
+              ) : (
+                <Menu className="h-6 w-6 text-gray-700" />
+              )}
+            </button>
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               <Link to="/" className="text-gray-700 hover:text-blue-600 transition-all duration-300 hover:scale-105 font-medium">Home</Link>
               <Link to="/services" className="text-gray-700 hover:text-blue-600 transition-all duration-300 hover:scale-105 font-medium">Services</Link>
@@ -228,6 +295,58 @@ const Contact = () => {
           </div>
         </div>
       </nav>
+      {/* Mobile Navigation Menu */}
+      <div className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="flex flex-col h-full">
+            <div className="flex justify-end p-4">
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <X className="h-6 w-6 text-gray-700" />
+              </button>
+            </div>
+            <div className="flex-1 px-4 py-2 space-y-4">
+              <Link 
+                to="/" 
+                className="block py-2 text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                to="/services" 
+                className="block py-2 text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Services
+              </Link>
+              <Link 
+                to="/project-topics" 
+                className="block py-2 text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Project Topics
+              </Link>
+              <Link 
+                to="/contact" 
+                className="block py-2 text-blue-600 font-semibold border-b-2 border-blue-600"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              <div className="pt-4">
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="py-20 px-4 relative z-10">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
@@ -295,6 +414,9 @@ const Contact = () => {
                     <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-pink-600 hover:bg-pink-700 rounded-full transition-colors hover:scale-110" aria-label="Instagram">
                       <Instagram className="h-5 w-5 text-white" />
                     </a>
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-green-600 hover:bg-green-700 rounded-full transition-colors hover:scale-110" aria-label="WhatsApp">
+                      <MessageCircle className="h-5 w-5 text-white" />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -304,7 +426,7 @@ const Contact = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
               <img 
-                src="/lovable-uploads/4b4d2d3c-3f84-450c-a19f-1eff31753fe1.png" 
+                src="/lovable-uploads/image.png" 
                 alt="Academic library" 
                 className="relative rounded-3xl shadow-2xl w-full h-72 object-cover border-4 border-white/50 group-hover:scale-105 transition-all duration-500"
               />
@@ -499,11 +621,11 @@ const Contact = () => {
                       <SelectValue placeholder="Select budget range..." />
                     </SelectTrigger>
                     <SelectContent className="bg-white border-2 border-gray-200 rounded-lg shadow-xl">
-                      <SelectItem value="under-100">Under $100</SelectItem>
-                      <SelectItem value="100-300">$100 - $300</SelectItem>
-                      <SelectItem value="300-500">$300 - $500</SelectItem>
-                      <SelectItem value="500-1000">$500 - $1000</SelectItem>
-                      <SelectItem value="1000-plus">$1000+</SelectItem>
+                      <SelectItem value="under-8300">Under ₹8,300</SelectItem>
+                      <SelectItem value="8300-24900">₹8,300 - ₹24,900</SelectItem>
+                      <SelectItem value="24900-41500">₹24,900 - ₹41,500</SelectItem>
+                      <SelectItem value="41500-83000">₹41,500 - ₹83,000</SelectItem>
+                      <SelectItem value="83000-plus">₹83,000+</SelectItem>
                       <SelectItem value="discuss">Let's Discuss</SelectItem>
                     </SelectContent>
                   </Select>
@@ -541,6 +663,19 @@ const Contact = () => {
           </Card>
         </div>
       </div>
+      {showWhatsapp && (
+        <div className="mt-6 flex flex-col items-center">
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 text-lg mt-2"
+          >
+            Chat with us on WhatsApp
+          </a>
+          <p className="text-green-700 mt-2 font-medium">For instant support, click the button above to chat with us on WhatsApp!</p>
+        </div>
+      )}
     </div>
   );
 };
