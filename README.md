@@ -32,7 +32,9 @@ cd <YOUR_PROJECT_NAME>
 # Step 3: Install the necessary dependencies.
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Create a .env file (see Environment Variables Setup below)
+
+# Step 5: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
@@ -74,7 +76,10 @@ Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-trick
 
 ## Environment Variables Setup
 
-This project uses environment variables to manage sensitive information. Create a `.env` file in the root directory with the following variables:
+This project requires environment variables to run properly. Follow these steps:
+
+1. Create a new file named `.env` in the root directory of the project
+2. Copy and paste the following template into the `.env` file:
 
 ```env
 # Contact Information
@@ -82,13 +87,26 @@ VITE_CONTACT_EMAIL=your_contact_email@example.com
 VITE_CONTACT_PHONE=your_contact_phone
 VITE_CONTACT_BUSINESS_HOURS="your_business_hours"
 
-# Supabase Configuration
+# Social Media Links
+VITE_INSTAGRAM_LINK=https://instagram.com/your_username
+VITE_LINKEDIN_LINK=https://linkedin.com/in/your_username
+VITE_FACEBOOK_LINK=https://facebook.com/your_username
+VITE_TWITTER_LINK=https://twitter.com/your_username
+
+# Supabase Configuration (Required for form submission)
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 VITE_SUPABASE_STORAGE_URL=your_supabase_storage_url
 ```
 
-Replace the placeholder values with your actual configuration. Never commit the `.env` file to version control.
+3. Replace the placeholder values with your actual configuration:
+   - For contact information: Use your actual email and phone number
+   - For social media: Use your actual social media profile URLs
+   - For Supabase: Create a free account at [Supabase](https://supabase.com) and get your project credentials
+
+4. Save the `.env` file
+
+Note: The `.env` file is listed in `.gitignore` and should never be committed to the repository. This is for security reasons.
 
 ## Security Notes
 
@@ -96,3 +114,13 @@ Replace the placeholder values with your actual configuration. Never commit the 
 2. Keep your environment variables secure and don't share them publicly
 3. Use different environment variables for development and production environments
 4. Regularly rotate sensitive keys and credentials
+
+## Troubleshooting
+
+If you encounter any issues:
+
+1. Make sure all environment variables are properly set in the `.env` file
+2. Verify that Node.js and npm are installed correctly
+3. Try deleting the `node_modules` folder and running `npm install` again
+4. Check the console for any error messages
+5. Make sure you're using the correct version of Node.js (recommended: v16 or higher)

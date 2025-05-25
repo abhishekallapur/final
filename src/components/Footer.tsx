@@ -7,6 +7,12 @@ const Footer = () => {
   const phone = import.meta.env.VITE_CONTACT_PHONE || '+91 7676832037';
   const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK || 'https://wa.me/917676832037';
 
+  // Social Media Links
+  const instagramLink = import.meta.env.VITE_INSTAGRAM_LINK || '#';
+  const linkedinLink = import.meta.env.VITE_LINKEDIN_LINK || '#';
+  const facebookLink = import.meta.env.VITE_FACEBOOK_LINK || '#';
+  const twitterLink = import.meta.env.VITE_TWITTER_LINK || '#';
+
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white">
       {/* Main Footer Content */}
@@ -23,16 +29,16 @@ const Footer = () => {
               </p>
             </div>
             <div className="flex space-x-4">
-              <a href="#" className="p-2 bg-blue-600 hover:bg-blue-700 rounded-full transition-colors">
+              <a href={facebookLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-600 hover:bg-blue-700 rounded-full transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 bg-blue-400 hover:bg-blue-500 rounded-full transition-colors">
+              <a href={twitterLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-400 hover:bg-blue-500 rounded-full transition-colors" aria-label="Twitter">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 bg-blue-700 hover:bg-blue-800 rounded-full transition-colors">
+              <a href={linkedinLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-700 hover:bg-blue-800 rounded-full transition-colors" aria-label="LinkedIn">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 bg-pink-600 hover:bg-pink-700 rounded-full transition-colors">
+              <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-pink-600 hover:bg-pink-700 rounded-full transition-colors" aria-label="Instagram">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>

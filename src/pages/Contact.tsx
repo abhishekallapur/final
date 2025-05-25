@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MessageCircle, Upload, CheckCircle, Clock, FileText, User } from 'lucide-react';
+import { Mail, Phone, MessageCircle, Upload, CheckCircle, Clock, FileText, User, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -192,6 +192,12 @@ const Contact = () => {
   const phone = import.meta.env.VITE_CONTACT_PHONE || '+1 (555) 123-4567';
   const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK || 'https://wa.me/15551234567';
 
+  // Social Media Links
+  const instagramLink = import.meta.env.VITE_INSTAGRAM_LINK || '#';
+  const linkedinLink = import.meta.env.VITE_LINKEDIN_LINK || '#';
+  const facebookLink = import.meta.env.VITE_FACEBOOK_LINK || '#';
+  const twitterLink = import.meta.env.VITE_TWITTER_LINK || '#';
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
       {/* Animated background elements */}
@@ -267,6 +273,29 @@ const Contact = () => {
                   <h3 className="font-bold text-gray-900 text-lg">Live Chat</h3>
                   <p className="text-gray-700 font-medium">Available 24/7</p>
                   <p className="text-sm text-green-600 font-medium">Instant support for urgent queries</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-6 p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-purple-100">
+                <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-xl shadow-md">
+                  <MessageCircle className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900 text-lg mb-4">Follow Us</h3>
+                  <div className="flex space-x-4">
+                    <a href={facebookLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-600 hover:bg-blue-700 rounded-full transition-colors hover:scale-110" aria-label="Facebook">
+                      <Facebook className="h-5 w-5 text-white" />
+                    </a>
+                    <a href={twitterLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-400 hover:bg-blue-500 rounded-full transition-colors hover:scale-110" aria-label="Twitter">
+                      <Twitter className="h-5 w-5 text-white" />
+                    </a>
+                    <a href={linkedinLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-700 hover:bg-blue-800 rounded-full transition-colors hover:scale-110" aria-label="LinkedIn">
+                      <Linkedin className="h-5 w-5 text-white" />
+                    </a>
+                    <a href={instagramLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-pink-600 hover:bg-pink-700 rounded-full transition-colors hover:scale-110" aria-label="Instagram">
+                      <Instagram className="h-5 w-5 text-white" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
