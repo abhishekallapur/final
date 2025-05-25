@@ -147,9 +147,8 @@ const ProjectTopics = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-14 md:h-16">
             <div className="flex items-center">
-              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AcademicPro
-              </span>
+              <img src="/pp.png" alt="ProjectEra Logo" className="h-10 w-auto mr-2" />
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-1">ProjectEra</span>
             </div>
             {/* Mobile menu button */}
             <button
