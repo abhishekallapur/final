@@ -1,9 +1,12 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const Footer = () => {
+  const email = import.meta.env.VITE_CONTACT_EMAIL || 'devprojectera@gmail.com';
+  const phone = import.meta.env.VITE_CONTACT_PHONE || '+91 7676832037';
+  const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK || 'https://wa.me/917676832037';
+
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white">
       {/* Main Footer Content */}
@@ -84,12 +87,16 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-6 text-blue-300">Contact Info</h4>
             <div className="space-y-4">
               <div className="flex items-center space-x-3 text-gray-300">
-                <Mail className="h-5 w-5 text-blue-400" />
-                <span>devprojectera@gmail.com</span>
+                <a href={`mailto:${email}`} className="hover:underline" aria-label="Email">
+                  <Mail className="h-5 w-5 text-blue-400" />
+                </a>
+                <a href={`mailto:${email}`} className="hover:underline">{email}</a>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
-                <Phone className="h-5 w-5 text-blue-400" />
-                <span>+91 7676832037</span>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:underline" aria-label="WhatsApp">
+                  <Phone className="h-5 w-5 text-blue-400" />
+                </a>
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:underline">{phone}</a>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <MapPin className="h-5 w-5 text-blue-400" />

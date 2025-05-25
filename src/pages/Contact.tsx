@@ -188,6 +188,10 @@ const Contact = () => {
     }
   ];
 
+  const email = import.meta.env.VITE_CONTACT_EMAIL || 'info@academicpro.com';
+  const phone = import.meta.env.VITE_CONTACT_PHONE || '+1 (555) 123-4567';
+  const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK || 'https://wa.me/15551234567';
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
       {/* Animated background elements */}
@@ -234,23 +238,23 @@ const Contact = () => {
 
             <div className="space-y-6">
               <div className="flex items-start space-x-6 p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-blue-100">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-xl shadow-md">
+                <a href={`mailto:${email}`} className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-xl shadow-md flex-shrink-0 hover:scale-110 transition-transform" aria-label="Email">
                   <Mail className="h-6 w-6 text-white" />
-                </div>
+                </a>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg">Email Us</h3>
-                  <p className="text-gray-700 font-medium">info@academicpro.com</p>
+                  <a href={`mailto:${email}`} className="text-gray-700 font-medium hover:underline">{email}</a>
                   <p className="text-sm text-blue-600 font-medium">We respond within 2 hours</p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-6 p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-yellow-100">
-                <div className="bg-gradient-to-br from-yellow-500 to-orange-500 p-4 rounded-xl shadow-md">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-yellow-500 to-orange-500 p-4 rounded-xl shadow-md flex-shrink-0 hover:scale-110 transition-transform" aria-label="WhatsApp">
                   <Phone className="h-6 w-6 text-white" />
-                </div>
+                </a>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg">Call Us</h3>
-                  <p className="text-gray-700 font-medium">+1 (555) 123-4567</p>
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="text-gray-700 font-medium hover:underline">{phone}</a>
                   <p className="text-sm text-orange-600 font-medium">Mon-Fri 9AM-6PM EST</p>
                 </div>
               </div>
