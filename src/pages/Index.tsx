@@ -105,7 +105,7 @@ const Index = () => {
           <div className="space-y-6 md:space-y-8 animate-fade-in">
             <div className="inline-flex items-center px-3 md:px-4 py-1.5 md:py-2 bg-blue-100 text-blue-700 rounded-full text-xs md:text-sm font-medium">
               <Star className="h-3 w-3 md:h-4 md:w-4 mr-1.5 md:mr-2" />
-              Trusted by 10,000+ Students
+              Trusted by Students
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
               Get professional help with 
@@ -145,11 +145,7 @@ const Index = () => {
       {/* Stats Section */}
       <section className="py-12 md:py-16 bg-white/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <div className="text-center p-4 md:p-6 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-all transform hover:scale-105">
-              <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1 md:mb-2">10,000+</div>
-              <div className="text-sm md:text-base text-gray-600">Projects Completed</div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             <div className="text-center p-4 md:p-6 rounded-xl bg-gradient-to-br from-green-50 to-green-100 hover:shadow-lg transition-all transform hover:scale-105">
               <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1 md:mb-2">98%</div>
               <div className="text-sm md:text-base text-gray-600">Success Rate</div>
